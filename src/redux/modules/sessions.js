@@ -6,7 +6,12 @@ const defaultState = {
 };
 
 export default function reducer(state = defaultState, action = {}) {
-  return state;
+  switch(action.type) {
+    case LOADING:
+      return Object.assign({}, state, { loading: true});
+    default:
+      return state;
+  }
 }
 
 export function loadSessions() {
