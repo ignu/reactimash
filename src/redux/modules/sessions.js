@@ -12,18 +12,18 @@ export default function reducer(state = defaultState, action = {}) {
     case LOADING:
       return Object.assign({}, state, { loading: true});
     case LOADING_COMPLETE:
-      return Object.assign({}, state, { loading: false, sessions: action.data });
+      return Object.assign({}, state, { loading: false, sessions: action.data});
     default:
       return state;
   }
 }
 
 export function loadSessions() {
-  return function(dispatch) {
+  return (dispatch) => {
     dispatch({ type: LOADING });
 
-    fetch(SESSIONS_URL).then((response) => {
-      dispatch({ type: LOADING_COMPLETE, data: response.json() });
-    });
+    fetch(SESSIONS_URL)
+      .then(response => response.json())
+      .then(json => dispatch({type: LOADING_COMPLETE, data: json}))
   };
 }
